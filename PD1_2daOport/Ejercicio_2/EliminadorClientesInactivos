@@ -1,0 +1,55 @@
+import java.util.ArrayList;
+import java.util.List;
+
+/*
+ * Clase encargada de eliminar de una lista los clientes que coincidan con el nombre indicado como inactivo.
+ */
+public class EliminadorClientesInactivos {
+
+    /*
+     * elimina de la lista todos los clientes que coincidan con el nombre inactivo
+     * 
+     * @throws IllegalArgumentException si la lista y el nombre son nulos
+     */
+    public static void eliminarClientesInactivos(List<String> clientes, String clienteInactivo) {
+
+        //para que la exepcion se lance se necesita que el nombre del cliente este en null
+        //y que la lista del cliente a eliminar tambien este en null, de lo contrario no se lanza la exepcion
+        if (clientes == null || clienteInactivo == null) {
+            throw new IllegalArgumentException(
+                "La lista y el nombre del cliente no pueden ser nulos."
+                //se pdria mejorar solo para que el nombre del cliente no sea nulo
+            );
+        }
+        
+        //recorre la lista y borra a los clientes que se llamen igual que el cliente inactivo
+        clientes.removeIf(cliente -> clienteInactivo.equals(cliente));
+        
+    }
+
+    /*
+     * Main para comprobar el funcionamiento del metodo eliminarClientesInactivos
+     */
+
+    public static void main(String[] args) {
+
+        List<String> clientes = new ArrayList<>();
+
+        clientes.add("Juan");
+        clientes.add("Pedro");//string literal
+        clientes.add(new String("Pedro"));//objeto String
+
+        //Pedro no es el mismo objeto, pero si el mismo contenido
+
+
+        try {
+            eliminarClientesInactivos(clientes, "Pedro");
+
+            System.out.println("Lista de clientes activos " + clientes);
+
+        } catch (IllegalArgumentException excepcion) {
+            System.out.println("Error: " + excepcion.getMessage());
+        }
+
+    }
+}
